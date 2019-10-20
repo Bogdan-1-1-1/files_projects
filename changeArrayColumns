@@ -1,0 +1,33 @@
+#include <iostream>
+#include <math.h>
+using namespace std;
+
+int main()
+{
+	int n, m, i, j, help; 
+	cin >> n >> m;  
+	int**arr = new int*[n];
+	for (int g = 0; g < n; g++) {
+		arr[g] = new int[m];
+	}
+	for (int g = 0; g < n; g++) {
+		for (int k = 0; k < m; k++) {
+			cin >> arr[g][k];
+		}
+	}
+	cin >> i >> j;
+
+	for (int g = 0; g < n; g++) {
+		help = arr[g][i];
+		arr[g][i] = arr[g][j];
+		arr[g][j] = help;
+	}
+	for (int g = 0; g < n; g++) {
+		for (int k = 0; k < m; k++) {
+			cout << arr[g][k] << " ";
+		}
+		cout << endl;
+	}
+	cin >> n;
+	return 0;
+}
