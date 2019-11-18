@@ -1,0 +1,79 @@
+#include <iostream>
+using namespace std;
+
+void rotate(int a[], unsigned size, int shift) { // task 1
+   int help;
+   for(int i = 0; i < shift; i++) {
+    for(int j = size-1; j>0; j--) {
+        help = a[j];
+        a[j] = a[j-1];
+        a[j-1] = help;
+    }
+   }
+   for(int i = 0; i < size; i++) {
+    cout << a[i] << " ";
+   }
+}
+
+int strstr(const char *text, const char *pattern) { //task 3
+   int i = 0,sim = 0;
+
+   if(*(pattern) == ' ') return 0;
+
+   while(*(text+i) != '\0') {
+     if(*(text+i) == *(pattern+sim)) {
+        sim++;
+        i++;
+     } else {
+        sim = 0;
+        i++;
+     }
+     if(*(pattern+sim) == '\0') {
+        return i-sim;
+     }
+   }
+   return -1;
+}
+
+void strcat(char *to,const char *from) { //task 2
+  int size1 = 0, size2 = 0, i = 0;
+
+  while(*(to+i)!='\0') {
+    size1++;
+    i++;
+  }
+  i = 0;
+
+  while(*(from+i)!='\0') {
+    size2++;
+    i++;
+  }
+
+  for(int j =0 ; j < size2; j++ ){
+    *(to+ size1+j) = *(from+j);
+  }
+  for(int j =0; j< size1+size2; j++) {
+    cout << *(to+j);
+  }
+}
+
+unsigned strlen(const char *str) { //task 5 
+ int i = 0;
+ while(*(str+i) != '\0') {
+    i++;
+ }
+ return i;
+}
+
+void swap_min(int *m[], unsigned rows, unsigned cols) {
+  int min; int 
+  for(int i = 0; i< cols; i++) {
+    
+  }
+  //it does nothing
+}
+
+int main()
+{
+ 
+}
