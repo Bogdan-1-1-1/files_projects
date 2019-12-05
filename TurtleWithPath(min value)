@@ -1,0 +1,74 @@
+import java.util.Scanner;
+
+public class JavaApplication2 {
+
+    public static void main(String[] args) {
+       
+        Scanner in = new Scanner(System.in);
+        short n = in.nextShort();
+        short[][] net = new short[n][n];
+        String line;
+        short k = 1;
+        
+        for(int i = 0; i < n; i++){
+           line = in.next();
+           for(int j = 0; j < n; j++){
+            net[i][j] = Short.parseShort(line.charAt(j)+"");
+          }
+        }
+        
+        char[][] visualPath = new char[n][n];
+        for(short i = 0; i<n; i++) {
+          for(short j = 0; j<n; j++) {
+            visualPath[i][j] = '-';
+          }
+        }     
+        visualPath[n-1][n-1] ='#';
+        visualPath[0][0] ='#';
+        
+        short[][] pathNet = new short[n][n];
+        
+        pathNet[0][0] = net[0][0];
+        for(short i = 1; i< n; i++) pathNet[i][0] = (short)(pathNet[i-1][0] + net[i][0]);
+        for(short j = 1; j< n; j++) pathNet[0][j] = (short)(pathNet[0][j-1] + net[0][j]);
+        
+        while(k<n) {
+          for(short i = k; i< n; i++) pathNet[i][k] = (short) (Math.min(pathNet[i][k-1] , pathNet[i-1][k]) + net[i][k]);
+          for(short j = k; j< n; j++) pathNet[k][j] = (short) (Math.min(pathNet[k-1][j], pathNet[k][j-1]) + net[k][j]);
+          k++;
+        }
+        
+        k = 0;
+        int z = n-1;
+        int s = n-1;
+        while(k >= 0 && z-1 >= 0 && s-1 >= 0) {
+          if(pathNet[z][s-1] <= pathNet[z-1][s]) {
+             visualPath[z][s-1] = '#';
+             s--;
+          } else {
+             visualPath[z-1][s] = '#';
+             z--;
+          }
+        } 
+        if(z >= 0) {
+          while(z-1 >= 0) {
+            visualPath[z][s] = '#';
+            z--;
+          }
+        }
+        if(s >= 0) {
+          while(s-1 >= 0) {
+            visualPath[z][s] = '#';
+            s--;
+          }
+        }
+        
+        for(short i = 0; i< n; i++) {
+          for(short j = 0; j < n; j++) {
+            System.out.print(visualPath[i][j]);
+          }
+          System.out.println();
+        }     
+    }
+}
+      
