@@ -1,0 +1,65 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+class TRAIN {
+	public: string NAZN;
+	int NUMB;
+	int TIME;
+	
+	TRAIN(string nazn, int numb, int time) {
+		NAZN = nazn;
+		NUMB = numb;
+		TIME = time;
+	}
+};
+
+ static TRAIN** sortByNazn(TRAIN* depo[], int leng) {
+	for(int i =0; i < leng; i++) {
+		for(int j = 0; j < leng-i-1; j++) {
+			if(depo[j]->NAZN > depo[j+1]->NAZN) {
+				TRAIN* reserve = depo[j+1];
+				depo[j+1] = depo[j];
+				depo[j] = reserve;
+			}
+		}
+	}
+	
+	return depo;
+}
+
+static void fullInfo(TRAIN* thomas) {
+	cout << "поезд с номером " << thomas->NUMB << " отправляется на станцию " << thomas->NAZN << " в следующее время:" << thomas->TIME << endl; 
+}
+
+static void trainsAfterTime(TRAIN* depo[], int leng, int time) {
+	int valOfTrains = 0;
+	for(int i = 0; i < leng; i++){
+		if(depo[i]->TIME > time) {
+			fullInfo(depo[i]);
+			valOfTrains++;
+		}
+	}
+	if(!valOfTrains) cout << "Нет поездов, отправляющихся после заданного времени: " << time << endl;
+}
+
+int main() {
+	TRAIN* depo[8];
+	for(int i=0; i<8; i++) {
+		string nazn;
+		int numb, time;
+		cin >> nazn >> numb >> time;
+		depo[i] = new TRAIN(nazn, numb, time);
+	}
+	sortByNazn(depo, 8); //initialization and alphabet sort (sorted by NAZN)
+	
+	/*for(int i = 0; i< 8; i++) {
+		cout << depo[i]->NAZN << endl;;
+	} */ //code if you want just to cout the list of trains
+	
+	/*int startTime;
+	cin >> startTime;
+	trainsAfterTime(depo, 8, startTime);*/ //code if you want to know the info about trains after the entered time
+	
+	return 0;
+}
